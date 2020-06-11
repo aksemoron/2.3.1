@@ -2,46 +2,45 @@ package project.service;
 
 
 import org.springframework.transaction.annotation.Transactional;
-import project.dao.DaoInterface;
+import project.dao.Dao;
 import project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class UserService implements ServiceInterface<User> {
+@org.springframework.stereotype.Service
+public class UserService implements Service<User> {
 
     @Autowired
-    private DaoInterface daoInterface;
+    private Dao dao;
 
     @Override
     @Transactional
     public List<User> getAll() {
-        return daoInterface.getAll();
+        return dao.getAll();
     }
 
     @Override
     @Transactional
     public boolean add(User object) {
-        return daoInterface.add(object);
+        return dao.add(object);
     }
 
     @Override
     @Transactional
     public boolean remove(User object) {
-        return daoInterface.remove(object);
+        return dao.remove(object);
     }
 
     @Override
     @Transactional
     public boolean update(User object) {
-        return daoInterface.update(object);
+        return dao.update(object);
     }
 
     @Override
     @Transactional
     public User getById(long id) {
-        return (User) daoInterface.getById(id);
+        return (User) dao.getById(id);
     }
 }

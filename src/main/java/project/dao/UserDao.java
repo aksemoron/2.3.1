@@ -13,7 +13,7 @@ import project.model.User;
 import java.util.List;
 
 @Repository
-public class UserDao implements DaoInterface<User> {
+public class UserDao implements Dao<User> {
 
     @Autowired
     private SessionFactory sessionFactory;
