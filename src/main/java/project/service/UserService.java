@@ -43,4 +43,9 @@ public class UserService implements Service<User> {
     public User getById(long id) {
         return (User) dao.getById(id);
     }
+
+    @Override
+    public boolean save(User object) {
+        return dao.save(object);
+    }
 }

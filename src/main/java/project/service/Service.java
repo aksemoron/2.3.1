@@ -14,4 +14,5 @@ public interface Service<T> {
 
    T getById(long id);
 
+   boolean save(T object);
 }

@@ -65,4 +65,14 @@ public class UserDao implements Dao<User> {
         query.setParameter("id", id);
         return query.getSingleResult();
     }
+
+    @Override
+    public boolean save(User object) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(object);
+        transaction.commit();
+        session.close();
+        return true;
+    }
 }

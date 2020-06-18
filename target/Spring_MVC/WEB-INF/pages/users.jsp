@@ -14,15 +14,15 @@
             <td>${users.family}</td>
             <td>${users.balans}</td>
             <td>
-                <a href="${pageContext.request.contextPath}/delete?idToDelete=${users.id}">Delete</a>
-                <a href="${pageContext.request.contextPath}/update?idToUpdate=${users.id}">Update</a>
+                <a href="${pageContext.request.contextPath}/admin/delete?idToDelete=${users.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/admin/update?idToUpdate=${users.id}">Update</a>
             </td>
         </tr>
 
     </c:forEach>
 
 </table>
-<form action="${pageContext.request.contextPath}/add" method="POST">
+<form action="${pageContext.request.contextPath}/admin/add" method="POST">
     <legend>Add user</legend>
     <p><label>Имя:<br><input type="text" name="name"></label></p>
     <p> <label>Фамилия:<br><input type="text" name="family"></label></p>

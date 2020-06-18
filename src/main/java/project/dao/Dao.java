@@ -12,4 +12,6 @@ public interface Dao<T> {
     boolean update(T object);
 
     T getById(long id);
+
+    boolean save(T object);
 }

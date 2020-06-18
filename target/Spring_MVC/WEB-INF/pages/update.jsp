@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/update" method="POST">
+<form action="${pageContext.request.contextPath}/admin/update" method="POST">
 
     <legend>Введите новые данные:</legend>
     <p> <label>Имя:<br><input type="text" name="name" value="${user.name}"></label></p>
