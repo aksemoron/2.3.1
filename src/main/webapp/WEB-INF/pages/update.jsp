@@ -22,8 +22,12 @@
     <p> <label>Имя:<br><input type="text" name="name" value="${user.name}"></label></p>
     <p><label>Фамилия:<br><input type="text" name="family" value="${user.family}"></label></p>
     <p> <label>Баланс:<br><input type="text" name="balans" value="${user.balans}"></label></p>
+    <p> <label>Почта:<br><input type="email" name="email" value="${user.email}"></label></p>
+    <p> <label>Пароль:<br><input type="password" name="password"></label></p>
     <p> <input type="hidden" name="id" value="${user.id}">
     <p> <input type="submit"></p>
 </form>
+
+<jsp:include page="logOut.jsp" />
 </body>
 </html>

@@ -1,0 +1,15 @@
+project\controller\AdminController.class
+project\config\WebConfig.class
+project\config\handler\LoginSuccessHandler.class
+project\config\SpringSecurityInitializer.class
+project\controller\RegistrationController.class
+project\model\Role.class
+project\service\UserService.class
+project\service\Service.class
+project\config\HuberConfig.class
+project\dao\UserDao.class
+project\config\SecurityConfig.class
+project\dao\Dao.class
+project\config\AppInit.class
+project\model\User.class
+project\controller\HelloServlet.class

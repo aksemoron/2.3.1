@@ -12,14 +12,16 @@
 </head>
 <body>
 
-<form method="post" action="${pageContext.request.contextPath}/registration">
+<form method="post" modelAttribute="user" action="${pageContext.request.contextPath}/registration">
     <legend>Регистрация</legend>
+    <p> <label>Почта:<br><input type="email" name="email"></label></p>
+    <p> <label>Пароль:<br><input type="password" name="password"></label></p>
     <p> <label>Имя:<br><input type="text" name="name"></label></p>
     <p><label>Фамилия:<br><input type="text" name="family"></label></p>
     <p> <label>Баланс:<br><input type="text" name="balans"></label></p>
-    <p> <label>Логин:<br><input type="text" name="login"></label></p>
-    <p> <label>Пароль:<br><input type="text" name="password"></label></p>
     <p> <input type="submit"></p>
 </form>
+
+<jsp:include page="logOut.jsp" />
 </body>
 </html>

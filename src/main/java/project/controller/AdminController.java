@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import project.model.User;
-import project.service.Service;
+import project.service.UserService;
 
 import java.util.Map;
 
@@ -14,40 +14,40 @@ import java.util.Map;
 public class AdminController {
 
     @Autowired
-    private Service service;
+    private UserService userService;
 
     @GetMapping(value = "/all")
     public String printAllUsers(ModelMap model) {
-        model.addAttribute("users", service.getAll());
-        return "users";
+        model.addAttribute("users", userService.getAll());
+        return "allUsers";
     }
 
     @PostMapping(value = "/add")
     public String addUser(ModelMap model, @RequestParam Map<String, String> params) {
-        service.add(new User(params.get("name"), params.get("family"), Long.parseLong(params.get("balans"))));
-        model.addAttribute("users", service.getAll());
-        return "users";
+        userService.save(new User(params.get("name"), params.get("family"), Long.parseLong(params.get("balans"))));
+        model.addAttribute("users", userService.getAll());
+        return "allUsers";
     }
 
     @GetMapping(value = "/delete")
     public String deleteUser(ModelMap model, @RequestParam Map<String, String> params) {
-        service.remove(new User(Long.parseLong(params.get("idToDelete"))));
-        model.addAttribute("users", service.getAll());
-        return "users";
+        userService.remove(new User(Long.parseLong(params.get("idToDelete"))));
+        model.addAttribute("users", userService.getAll());
+        return "allUsers";
     }
 
     @GetMapping(value = "/update")
     public String goToUpdateUser(ModelMap model, @RequestParam Map<String, String> params) {
-        model.addAttribute("user", service.getById(Long.parseLong(params.get("idToUpdate"))));
+        model.addAttribute("user", userService.getById(Long.parseLong(params.get("idToUpdate"))));
         return "update";
     }
 
     @PostMapping(value = "/update")
     public String updateUser(ModelMap model, @RequestParam Map<String, String> params) {
-        service.update(new User(Long.parseLong(params.get("id")),params.get("name"),
+        userService.update(new User(Long.parseLong(params.get("id")),params.get("name"),
                 params.get("family"), Long.parseLong(params.get("balans"))));
-        model.addAttribute("users", service.getAll());
-        return "users";
+        model.addAttribute("users", userService.getAll());
+        return "allUsers";
     }
 
 }

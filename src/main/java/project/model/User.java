@@ -6,10 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "crudspringuser")
+@Table(name = "users")
 public class User implements UserDetails {
 
 
@@ -29,24 +30,27 @@ public class User implements UserDetails {
         this.balans = balans;
     }
 
-    @Column(name = "login")
-    private String login;
 
-    public User(String login, String password, String name, String family, long balans) {
-        this.login = login;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "email")
+    private String email;
+
+    public User(String email, String password, String name, String family, long balans) {
+        this.email = email;
         this.password = password;
         this.name = name;
         this.family = family;
         this.balans = balans;
     }
 
-    public String getLogin() {
-        return login;
-    }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -73,7 +77,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -126,7 +130,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
@@ -136,21 +140,21 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

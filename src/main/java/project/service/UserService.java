@@ -1,51 +1,17 @@
 package project.service;
 
-
-import org.springframework.transaction.annotation.Transactional;
-import project.dao.Dao;
-import project.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
-@org.springframework.stereotype.Service
-public class UserService implements Service<User> {
+public interface UserService<T> {
 
-    @Autowired
-    private Dao dao;
+   List <T> getAll();
 
-    @Override
-    @Transactional
-    public List<User> getAll() {
-        return dao.getAll();
-    }
 
-    @Override
-    @Transactional
-    public boolean add(User object) {
-        return dao.add(object);
-    }
+   boolean remove(T object);
 
-    @Override
-    @Transactional
-    public boolean remove(User object) {
-        return dao.remove(object);
-    }
+   boolean update(T object);
 
-    @Override
-    @Transactional
-    public boolean update(User object) {
-        return dao.update(object);
-    }
+   T getById(long id);
 
-    @Override
-    @Transactional
-    public User getById(long id) {
-        return (User) dao.getById(id);
-    }
-
-    @Override
-    public boolean save(User object) {
-        return dao.save(object);
-    }
+   boolean save(T object);
 }
