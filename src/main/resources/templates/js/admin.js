@@ -1,1 +1,8 @@
-var output = $('#output');
+$(document).ready(function(){
+   user();
+});
+
+
+function user() {
+
+}

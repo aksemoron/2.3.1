@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.project.model.User;
 import ru.project.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -17,8 +18,8 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping(value = "/all")
-    public String printAllUsers(ModelMap model) {
-        model.addAttribute("users", userService.getAll());
+    public String printAllUsers(ModelMap model, HttpServletRequest httpSession) {
+        model.addAttribute("user", httpSession.getSession().getAttribute("user"));
         return "admin";
     }
 
