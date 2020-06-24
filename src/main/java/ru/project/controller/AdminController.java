@@ -19,7 +19,7 @@ public class AdminController {
     @GetMapping(value = "/all")
     public String printAllUsers(ModelMap model) {
         model.addAttribute("users", userService.getAll());
-        return "allUsers";
+        return "admin";
     }
 
     @PostMapping(value = "/add")
