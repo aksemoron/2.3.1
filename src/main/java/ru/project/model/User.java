@@ -55,6 +55,17 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+
+    @Column(name = "age")
+    private Long age;
+
     @Column(name = "password")
     private String password;
 
@@ -70,6 +81,18 @@ public class User implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+
+
+    public User(String email, Long age, String password, String name, String family, long balans, Set<Role> roles) {
+        this.email = email;
+        this.age = age;
+        this.password = password;
+        this.name = name;
+        this.family = family;
+        this.balans = balans;
+        this.roles = roles;
     }
 
     public void setRoles(Set<Role> roles) {

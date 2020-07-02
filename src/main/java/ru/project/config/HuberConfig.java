@@ -22,6 +22,10 @@ import java.util.Properties;
 public class HuberConfig {
 
    @Autowired
+   public HuberConfig(Environment env) {
+      this.env = env;
+   }
+
    private Environment env;
 
    @Bean

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.dao.UserDao;
@@ -49,6 +51,11 @@ public class UserUserServiceImpl implements UserService<User>, UserDetailsServic
     @Override
     @Transactional
     public boolean update(User object) {
+        PasswordEncoder passwordEnocder = new BCryptPasswordEncoder();
+        object.setPassword(passwordEnocder.encode(object.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDao.getOne(object.getBalans()));
+        object.setRoles(roles);
         return userDao.update(object);
     }
 
@@ -61,9 +68,11 @@ public class UserUserServiceImpl implements UserService<User>, UserDetailsServic
     @Override
     @Transactional
     public boolean save(User object) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.getOne(1L));
-        object.setRoles(roles);
+        PasswordEncoder passwordEnocder = new BCryptPasswordEncoder();
+        object.setPassword(passwordEnocder.encode(object.getPassword()));
+            Set<Role> roles = new HashSet<>();
+            roles.add(roleDao.getOne(object.getBalans()));
+            object.setRoles(roles);
         return userDao.save(object);
     }
 

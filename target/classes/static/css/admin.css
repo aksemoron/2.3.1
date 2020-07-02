@@ -33,3 +33,44 @@
     background-color: #ffffff;
 }
 
+#email{
+    color: white;
+    font-weight: bolder;
+}
+
+.witchRoles{
+    color: white;
+    font-weight: lighter;
+}
+
+#roles{
+    color: white;
+}
+
+.newUser{
+    background-color: white;
+}
+
+.textNewUser{
+    padding-top:1.5%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.inputNewUser{
+    resize: none;
+    width: 40%;
+    display:block;
+    margin:0 auto;
+}
+
+.btnAddNewUser{
+    display: block;
+    margin: 2% auto;
+}
+
+.new{
+    margin-right: 0;
+    margin-left: 0;
+}
+
