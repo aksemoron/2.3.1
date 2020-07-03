@@ -12,7 +12,7 @@ function getEmailOfUser() {
         },
 
         error: function (error) {
-            alert("gettingListOfUsers Error");
+            alert("getEmail Error");
         }
     });
 }
@@ -25,7 +25,7 @@ function getRoles() {
         },
 
         error: function (error) {
-            alert("gettingListOfUsers Error");
+            alert("getRoles Error");
         }
     });
 }

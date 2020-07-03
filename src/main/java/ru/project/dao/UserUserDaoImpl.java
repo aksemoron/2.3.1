@@ -29,7 +29,11 @@ public class UserUserDaoImpl implements UserDao<User> {
 
     @Override
     public List<User> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM User").getResultList();//сделать одним запросом
+
+        /*sessionFactory.getCurrentSession().createQuery("SELECT p FROM User p JOIN p.roles c WHERE c.id = 2").getResultList();/*/
+        return sessionFactory.getCurrentSession()
+                .createQuery("select distinct u from User u left join fetch u.roles")
+                .getResultList();
     }
 
 
@@ -64,7 +68,7 @@ public class UserUserDaoImpl implements UserDao<User> {
         try {
             Session session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
-            session.merge(object);
+            session.update(object);
             transaction.commit();
             session.close();
             return true;

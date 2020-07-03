@@ -13,7 +13,7 @@ function getEmailOfUser() {
         },
 
         error: function (error) {
-            alert("gettingListOfUsers Error");
+            alert("getEmail Error");
         }
     });
 }
@@ -26,7 +26,7 @@ function getRoles() {
         },
 
         error: function (error) {
-            alert("gettingListOfUsers Error");
+            alert("getRoles Error");
         }
     });
 }
@@ -67,16 +67,25 @@ function getTableOfUsers() {
     })
 }
 
-$(document).on("click", "#addNewUser", function(){
+$(document).on("click", "#addNewUser", function () {
     const select = $('#roleNewUser option:selected');
     const val = select.val();
+    let nameOFUser = "USER";
+    if (val == 1) {
+        nameOFUser = "ADMIN"
+    }
     let addNewUser = {
         name: $('#name').val(),
         family: $('#family').val(),
         email: $('#emailNewUser').val(),
         password: $('#password').val(),
         age: $('#age').val(),
-        balans: val   //тут изменить роли нужно передавать сет ролей?
+        roles: [
+            {
+                "id": val,
+                "name": nameOFUser
+            }
+        ]
     }
     $.ajax({
         url: '/admin/rest/addNewUser',
@@ -85,7 +94,8 @@ $(document).on("click", "#addNewUser", function(){
         dataType: 'json',
         contentType: "application/json",
         success: function (responseData, status, jqXHR) {
-            window.location.replace("/admin");
+            $('.close').click();
+            getTableOfUsers()
         },
         error: function () {
             alert('AddUser Error');
@@ -93,17 +103,26 @@ $(document).on("click", "#addNewUser", function(){
     })
 })
 
-$(document).on("click", "#edit", function(){
+$(document).on("click", "#edit", function () {
     const select = $('#roleUpdate option:selected');
     const val = select.val();
+    let nameOFUser = "USER";
+    if (val == 1) {
+        nameOFUser = "ADMIN"
+    }
     let updateUser = {
-        id:$('#idUpdate').val(),
+        id: $('#idUpdate').val(),
         name: $('#nameUpdate').val(),
         family: $('#familyUpdate').val(),
         email: $('#emailUpdate').val(),
         password: $('#passwordUpdate').val(),
         age: $('#ageUpdate').val(),
-        balans: val   //тут изменить роли нужно передавать сет ролей?
+        roles: [
+            {
+                "id": val,
+                "name": nameOFUser
+            }
+        ]
     }
     $.ajax({
         url: '/admin/rest/updateUser',
@@ -111,16 +130,18 @@ $(document).on("click", "#edit", function(){
         data: JSON.stringify(updateUser),
         dataType: 'json',
         contentType: "application/json",
-        success: function (responseData, status, jqXHR) {
-            window.location.replace("/admin");
+        success: function (response) {
+            $('.close').click();
+            getTableOfUsers()
         },
-        error: function () {
-            window.location.replace("/admin/all");  //я так и не понял как обновить связанный сет без ошибки там все надо переделать
+
+        error: function (responseData, status, jqXHR) {
+            alert("ошибка")
         }
     })
 })
 
-$(document).on("click", "#updateButton", function(){   //вот тут заполнение динамическое если делать без js вообще не представляю как это возможно
+$(document).on("click", "#updateButton", function () {
     const id = $(this).data('id');
 
     $.ajax({
@@ -142,7 +163,7 @@ $(document).on("click", "#updateButton", function(){   //вот тут запо�
     })
 })
 
-$(document).on("click", "#deleteButton", function(){   //вот тут заполнение динамическое если делать без js вообще не представляю как это возможно
+$(document).on("click", "#deleteButton", function () {   //вот тут заполнение динамическое если делать без js вообще не представляю как это возможно
     const id = $(this).data('id');
 
     $.ajax({
@@ -165,9 +186,9 @@ $(document).on("click", "#deleteButton", function(){   //вот тут запо�
 })
 
 
-$(document).on("click", "#delete", function(){
+$(document).on("click", "#delete", function () {
     $.ajax({
-        url: '/admin/rest/deleteUser/'+$('#idDelete').val(),
+        url: '/admin/rest/deleteUser/' + $('#idDelete').val(),
         type: 'GET',
         dataType: 'json',
         contentType: "application/json",
@@ -186,19 +207,19 @@ function getInfoOfUser() {
         url: '/user/rest/getUser',
         success: function (user) {
             let userData = '';
-                let userRoles = user.roles;
-                let roles = '';
+            let userRoles = user.roles;
+            let roles = '';
 
-                for (let role of userRoles) {
-                    roles += " " + role.name;
-                }
-                userData += '<tr>';
-                userData += '<td>' + user.id + '</td>';
-                userData += '<td>' + user.name + '</td>';
-                userData += '<td>' + user.family + '</td>';
-                userData += '<td>' + user.age + '</td>';
-                userData += '<td>' + user.email + '</td>';
-                userData += '<td>' + roles + '</td>';
+            for (let role of userRoles) {
+                roles += " " + role.name;
+            }
+            userData += '<tr>';
+            userData += '<td>' + user.id + '</td>';
+            userData += '<td>' + user.name + '</td>';
+            userData += '<td>' + user.family + '</td>';
+            userData += '<td>' + user.age + '</td>';
+            userData += '<td>' + user.email + '</td>';
+            userData += '<td>' + roles + '</td>';
             $('#userInfoTable').html(userData);
         },
 

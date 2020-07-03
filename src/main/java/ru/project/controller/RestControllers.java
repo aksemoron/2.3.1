@@ -16,12 +16,10 @@ import java.util.Set;
 @RestController
 @RequestMapping("/admin/rest")
 public class RestControllers {
-    private HttpSession httpSession;//тут получить у спрингсекюрити без httpSession
     private UserService userService;
 
     @Autowired
-    public RestControllers( HttpSession httpSession, UserService userService) {
-        this.httpSession = httpSession;
+    public RestControllers(UserService userService) {
         this.userService = userService;
     }
 
@@ -42,8 +40,8 @@ public class RestControllers {
     }
 
     @PostMapping("/updateUser")
-    public void updateUser(@RequestBody User user){
-        userService.update(user);
+    public boolean updateUser(@RequestBody User user){
+        return userService.update(user);
     }
 
 

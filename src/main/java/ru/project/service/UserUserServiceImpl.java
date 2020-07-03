@@ -53,9 +53,6 @@ public class UserUserServiceImpl implements UserService<User>, UserDetailsServic
     public boolean update(User object) {
         PasswordEncoder passwordEnocder = new BCryptPasswordEncoder();
         object.setPassword(passwordEnocder.encode(object.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.getOne(object.getBalans()));
-        object.setRoles(roles);
         return userDao.update(object);
     }
 
@@ -70,9 +67,6 @@ public class UserUserServiceImpl implements UserService<User>, UserDetailsServic
     public boolean save(User object) {
         PasswordEncoder passwordEnocder = new BCryptPasswordEncoder();
         object.setPassword(passwordEnocder.encode(object.getPassword()));
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleDao.getOne(object.getBalans()));
-            object.setRoles(roles);
         return userDao.save(object);
     }
 
