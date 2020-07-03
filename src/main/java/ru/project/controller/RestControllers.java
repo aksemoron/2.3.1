@@ -27,22 +27,7 @@ public class RestControllers {
 
 
 
-    @GetMapping("/emailOfUser")
-    public ResponseEntity<String> getEmail() {
-        User user = (User) httpSession.getAttribute("user");
-        String text = user.getEmail();
-        return new ResponseEntity<>(text, HttpStatus.OK);
-    }
 
-
-    @GetMapping("/RolesOfUser")
-    public ResponseEntity<String> getRoles() {
-        User user = (User) httpSession.getAttribute("user");
-        Set<Role> set =user.getRoles();
-        String text =set.toString().replaceAll("(?u)[^\\pL ]","");
-
-        return new ResponseEntity<>(text, HttpStatus.OK);
-    }
 
 
     @GetMapping("/tableOfUsers")
@@ -61,9 +46,16 @@ public class RestControllers {
         userService.update(user);
     }
 
+
+
     @GetMapping("/getUser/{id}")
-    public User gettingUserById(@PathVariable Long id){
+    public User getUserById(@PathVariable Long id){
         return (User) userService.getById(id);
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public void deleteUserById(@PathVariable Long id){
+        userService.remove(new User(id));
     }
 
 

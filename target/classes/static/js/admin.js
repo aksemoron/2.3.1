@@ -2,11 +2,12 @@ $(document).ready(function () {
     getEmailOfUser();
     getRoles();
     getTableOfUsers();
+    getInfoOfUser();
 });
 
 function getEmailOfUser() {
     $.ajax({
-        url: '/admin/rest/emailOfUser',
+        url: '/user/rest/emailOfUser',
         success: function (data) {
             $("#email").text(data);
         },
@@ -19,7 +20,7 @@ function getEmailOfUser() {
 
 function getRoles() {
     $.ajax({
-        url: '/admin/rest/RolesOfUser',
+        url: '/user/rest/RolesOfUser',
         success: function (data) {
             $("#roles").text(data);
         },
@@ -53,7 +54,7 @@ function getTableOfUsers() {
                 userData += '<td> <button type="button" id="updateButton" class="btn btn-info" ' +
                     'data-toggle="modal" data-target="#updateModal" data-id="' + user.id + '">Edit</button> </td>';
 
-                userData += '<td> <button type="button" id="deletingButton" class="btn btn-danger" ' +
+                userData += '<td> <button type="button" id="deleteButton" class="btn btn-danger" ' +
                     'data-toggle="modal" data-target="#deleteModal" data-id="' + user.id + '">Delete</button> </td>';
             });
 
@@ -140,3 +141,69 @@ $(document).on("click", "#updateButton", function(){   //вот тут запо�
         }
     })
 })
+
+$(document).on("click", "#deleteButton", function(){   //вот тут заполнение динамическое если делать без js вообще не представляю как это возможно
+    const id = $(this).data('id');
+
+    $.ajax({
+        url: '/admin/rest/getUser/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (user) {
+            $('#idDelete').val(user.id);
+            $('#nameDelete').val(user.name);
+            $('#familyDelete').val(user.family);
+            $('#ageDelete').val(user.age);
+            $('#emailDelete').val(user.email);
+            $('#passwordDelete').val(user.password);
+        },
+
+        error: function () {
+            alert("error");
+        }
+    })
+})
+
+
+$(document).on("click", "#delete", function(){
+    $.ajax({
+        url: '/admin/rest/deleteUser/'+$('#idDelete').val(),
+        type: 'GET',
+        dataType: 'json',
+        contentType: "application/json",
+        success: function (responseData, status, jqXHR) {
+            window.location.replace("/admin");
+        },
+        error: function () {
+            window.location.replace("/admin/all");  //я так и не понял как обновить связанный сет без ошибки там все надо переделать
+        }
+    })
+})
+
+
+function getInfoOfUser() {
+    $.ajax({
+        url: '/user/rest/getUser',
+        success: function (user) {
+            let userData = '';
+                let userRoles = user.roles;
+                let roles = '';
+
+                for (let role of userRoles) {
+                    roles += " " + role.name;
+                }
+                userData += '<tr>';
+                userData += '<td>' + user.id + '</td>';
+                userData += '<td>' + user.name + '</td>';
+                userData += '<td>' + user.family + '</td>';
+                userData += '<td>' + user.age + '</td>';
+                userData += '<td>' + user.email + '</td>';
+                userData += '<td>' + roles + '</td>';
+            $('#userInfoTable').html(userData);
+        },
+
+        error: function (error) {
+            alert("getUser Error");
+        }
+    })
+}

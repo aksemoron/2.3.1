@@ -131,25 +131,106 @@
 
                 <!-- UserInfo -->
                 <div class="tab-pane fade userInfo" id="v-pills-user" role="tabpanel">
-                    ыфдвлаошыфааыфавыаы
-                    фыафыаыафаыфыафафы
-                    афыфыаыафаыффыа
-                    фаыфыафыаафыфыа
-                    фыафыаыфаыаффыа
-                    фыафыаафыфыаыаф
-                    афыфыаафыфыааыф
-                    фыафыаыфааыффыа
-                    аыфафыфаыыаф
+                    <div class="tab-pane fade show active adminPanel" id="v-pills-user2" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab">
+                        <!-- Содержимое вкладки User -->
+                        <H1>User information-page</H1>
+
+                        <div class="tab-pane fade show active" id="userInfo">
+                            <table class="table table-striped">
+
+                                <!-- Сама таблица -->
+                                <h3>About user</h3>
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody id="userInfoTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 
+    <div id="deleteModalWindow">
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deliteModalLabel">Delete user</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+
+                            <div class="form-group">
+                                <div class="textNewUser"><label for="name">ID</label></div>
+                                <div class="inputNewUser"><input type="text" class="form-control" readonly
+                                                                 id="idDelete"></div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="textNewUser"><label for="name">First name</label></div>
+                                <div class="inputNewUser"><input type="text" class="form-control" readonly
+                                                                 id="nameDelete"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="textNewUser"><label for="family">Last name</label></div>
+                                <div class="inputNewUser"><input type="text" class="form-control" readonly
+                                                                 id="familyDelete"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="textNewUser"><label for="age">Age</label></div>
+                                <div class="inputNewUser"><input type="text" class="form-control" readonly
+                                                                 id="ageDelete"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="textNewUser"><label for="emailNewUser">Email</label></div>
+                                <div class="inputNewUser"><input type="email" class="form-control" readonly
+                                                                 id="emailDelete"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="textNewUser"><label for="password">Password</label></div>
+                                <div class="inputNewUser"><input type="password" class="form-control" readonly
+                                                                 id="passwordDelete"></div>
+                            </div>
+                            <div class="inputNewUser" id="roleDelete">
+                                <select disabled class="custom-select" size="2">
+                                    <option value="1">ADMIN</option>
+                                    <option value="2">USER</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="delete" class="btn btn-primary">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="updatingModalWindow">
 
         <!-- Modal -->
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
