@@ -29,7 +29,7 @@ public class UserUserDaoImpl implements UserDao<User> {
 
     @Override
     public List<User> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM User").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("FROM User").getResultList();//сделать одним запросом
     }
 
 

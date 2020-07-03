@@ -16,7 +16,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/admin/rest")
 public class RestControllers {
-    private HttpSession httpSession;
+    private HttpSession httpSession;//тут получить у спрингсекюрити без httpSession
     private UserService userService;
 
     @Autowired
