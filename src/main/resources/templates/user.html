@@ -21,7 +21,8 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
 
-            <h4><span id="email"></span> <span class="witchRoles">witch roles</span> <span id="roles"></span></h4>
+            <h4><span id="email" type="text" th:utext="${email}"></span> <span class="witchRoles">witch roles</span>
+                <span id="roles" type="text" th:utext="${roles}"></span></h4>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -65,7 +66,14 @@
                                 <th>Role</th>
                             </tr>
                             </thead>
-                            <tbody id="userInfoTable"></tbody>
+                            <tr th:object="${user}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.name}"></td>
+                                <td th:text="${user.family}"></td>
+                                <td th:text="${user.age}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${roles}"></td>
+                            </tr>
                         </table>
                     </div>
                 </div>
