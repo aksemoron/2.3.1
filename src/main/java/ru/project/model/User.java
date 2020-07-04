@@ -42,13 +42,21 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    public User(String email, String password, String name, String family, long balans) {
+    public User(String email, Long age, String password, String name, String family) {
+        this.email = email;
+        this.age = age;
+        this.password = password;
+        this.name = name;
+        this.family = family;
+    }
+
+    /*public User(String email, String password, String name, String family, long balans) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.family = family;
         this.balans = balans;
-    }
+    }*/
 
 
 

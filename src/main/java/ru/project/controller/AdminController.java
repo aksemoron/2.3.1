@@ -6,20 +6,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.project.dao.RoleDao;
 import ru.project.model.Role;
 import ru.project.model.User;
 import ru.project.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
+
     private UserService userService;
+    private RoleDao roleDao;
+
+    @Autowired
+    public AdminController(UserService userService, RoleDao roleDao) {
+        this.userService = userService;
+        this.roleDao = roleDao;
+    }
 
     @GetMapping(value = "/all")
     public String printAllUsers(ModelMap modelMap) {
@@ -27,17 +33,24 @@ public class AdminController {
         User user = (User) authentication.getPrincipal();
         Set<Role> set = user.getRoles();
         String text = set.toString().replaceAll("(?u)[^\\pL ]", "");
+        List<User> users = userService.getAll();
         modelMap.addAttribute("email", user.getEmail());
         modelMap.addAttribute("roles", text);
         modelMap.addAttribute("user",user);
+        modelMap.addAttribute("allUsers",users);
         return "admin";
     }
 
     @PostMapping(value = "/add")
     public String addUser(ModelMap model, @RequestParam Map<String, String> params) {
-        userService.save(new User(params.get("name"), params.get("family"), Long.parseLong(params.get("balans"))));
+        System.out.println(params.get("emailNewUser")+"----------------------------------------------------------");
+        /*User user = new User(params.get("emailNewUser"),
+                Long.parseLong(params.get("age")),params.get("password"), params.get("name"),
+                params.get("family"));
+        user.setRoles(new HashSet<Role>((Collection<? extends Role>) roleDao.getOne(Long.parseLong(params.get("roleNewUser")))));
+        userService.save(user);*/
         model.addAttribute("users", userService.getAll());
-        return "allUsers";
+        return "admin";
     }
 
     @GetMapping(value = "/delete")
