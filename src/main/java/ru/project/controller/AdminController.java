@@ -42,36 +42,66 @@ public class AdminController {
     }
 
     @PostMapping(value = "/add")
-    public String addUser(ModelMap model, @RequestParam Map<String, String> params) {
-        System.out.println(params.get("emailNewUser")+"----------------------------------------------------------");
-        /*User user = new User(params.get("emailNewUser"),
+    public String addUser(@RequestParam Map<String, String> params) {
+       User user = new User(params.get("emailNewUser"),
                 Long.parseLong(params.get("age")),params.get("password"), params.get("name"),
                 params.get("family"));
-        user.setRoles(new HashSet<Role>((Collection<? extends Role>) roleDao.getOne(Long.parseLong(params.get("roleNewUser")))));
-        userService.save(user);*/
-        model.addAttribute("users", userService.getAll());
-        return "admin";
+       Set<Role> roles= new HashSet<>();
+       roles.add(roleDao.getOne(Long.parseLong(params.get("roleNewUser"))));
+        user.setRoles(roles);
+       userService.save(user);
+        return "redirect:/admin/all";
     }
 
-    @GetMapping(value = "/delete")
-    public String deleteUser(ModelMap model, @RequestParam Map<String, String> params) {
-        userService.remove(new User(Long.parseLong(params.get("idToDelete"))));
-        model.addAttribute("users", userService.getAll());
-        return "allUsers";
+    @GetMapping(value = "/showDelete")
+    public String goToDeleteUser(ModelMap modelMap, @RequestParam Map<String, String> params) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();//
+        User user = (User) authentication.getPrincipal();
+        User userToDelite = (User) userService.getById(Long.parseLong(params.get("deleteButton")));
+        Set<Role> set = user.getRoles();
+        String text = set.toString().replaceAll("(?u)[^\\pL ]", "");
+        List<User> users = userService.getAll();
+        modelMap.addAttribute("email2", user.getEmail());
+        modelMap.addAttribute("roles2", text);
+        modelMap.addAttribute("user2",user);
+        modelMap.addAttribute("allUsers2",users);
+        modelMap.addAttribute("userToDelite",userToDelite);
+        return "delete";
     }
 
-    @GetMapping(value = "/update")
-    public String goToUpdateUser(ModelMap model, @RequestParam Map<String, String> params) {
-        model.addAttribute("user", userService.getById(Long.parseLong(params.get("idToUpdate"))));
+    @GetMapping(value = "/showUpdate")
+    public String goToUpdateUser(ModelMap modelMap, @RequestParam Map<String, String> params) {
+        System.out.println(params.get("updateButton")+"----------------------------------------");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();//
+        User user = (User) authentication.getPrincipal();
+        Set<Role> set = user.getRoles();
+        User userToUpdate = (User) userService.getById(Long.parseLong(params.get("updateButton")));
+        String text = set.toString().replaceAll("(?u)[^\\pL ]", "");
+        List<User> users = userService.getAll();
+        modelMap.addAttribute("email", user.getEmail());
+        modelMap.addAttribute("roles1", text);
+        modelMap.addAttribute("user1",user);
+        modelMap.addAttribute("allUsers1",users);
+        modelMap.addAttribute("userToUpdate",userToUpdate);
         return "update";
     }
 
     @PostMapping(value = "/update")
     public String updateUser(ModelMap model, @RequestParam Map<String, String> params) {
-        userService.update(new User(Long.parseLong(params.get("id")),params.get("name"),
-                params.get("family"), Long.parseLong(params.get("balans"))));
-        model.addAttribute("users", userService.getAll());
-        return "allUsers";
+        User user = new User(params.get("emailUpdate"),
+                Long.parseLong(params.get("ageUpdate")),params.get("passwordUpdate"), params.get("nameUpdate"),
+                params.get("familyUpdate"));
+        
+        Set<Role> roles= new HashSet<>();
+        roles.add(roleDao.getOne(Long.parseLong(params.get("roleUpdate"))));
+        user.setRoles(roles);
+        userService.update(user);
+        return "redirect:/admin/all";
+    }
+    @PostMapping(value = "/deleteUser")
+    public String deleteUser(ModelMap model, @RequestParam Map<String, String> params) {
+        userService.remove(new User(Long.parseLong(params.get("deleteUser"))));
+        return "redirect:/admin/all";
     }
 
 }

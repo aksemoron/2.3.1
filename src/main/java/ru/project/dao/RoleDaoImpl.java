@@ -3,6 +3,7 @@ package ru.project.dao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.project.model.Role;
 
 import javax.persistence.TypedQuery;
@@ -20,6 +21,7 @@ public class RoleDaoImpl implements RoleDao {
         this.sessionFactory = sessionFactory;
     }
 
+    @Transactional
     public Role getOne(long id) {
         TypedQuery<Role> query = sessionFactory.getCurrentSession().createQuery("FROM Role WHERE id = :id");
         query.setParameter("id", id);

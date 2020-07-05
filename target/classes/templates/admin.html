@@ -91,15 +91,24 @@
                                         </ul>
                                     </td>
                                     <td>
-                                        <button type="button" id="updateButton" class="btn btn-info" data-toggle="modal"
-                                                data-target="#updateModal" data-th-id="${users.id}">Edit
-                                        </button>
+                                        <form action="/admin/showUpdate" method="GET">
+                                            <button type="submit" id="updateButton" class="btn btn-info"
+                                                    data-toggle="modal"
+                                                    name="updateButton"
+                                                    th:value="${users.id}"
+                                                    data-target="#updateModal" data-th-id="${users.id}">Edit
+                                            </button>
+                                        </form>
                                     </td>
                                     <td>
-                                        <button type="button" id="deleteButton" class="btn btn-danger"
-                                                data-toggle="modal"
-                                                data-target="#deleteModal" data-th-id="${users.id}">Delete
-                                        </button>
+                                        <form action="/admin/showDelete" method="GET">
+                                            <button type="submit" id="deleteButton" class="btn btn-danger"
+                                                    data-toggle="modal"
+                                                    name="deleteButton"
+                                                    th:value="${users.id}"
+                                                    data-target="#deleteModal" data-th-id="${users.id}">Delete
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             </table>
@@ -113,36 +122,40 @@
                                     <form action="/admin/add" method="post" id="addUser">
                                         <div class="form-group">
                                             <div class="textNewUser"><label for="name">First name</label></div>
-                                            <div class="inputNewUser"><input type="text" class="form-control"
-                                                                             id="name" form="addUser"></div>
+                                            <div class="inputNewUser"><input type="text" name="name"
+                                                                             class="form-control"
+                                                                             id="name"></div>
                                         </div>
                                         <div class="form-group">
                                             <div class="textNewUser"><label for="family">Last name</label></div>
-                                            <div class="inputNewUser"><input type="text" class="form-control"
-                                                                             id="family" form="addUser"></div>
+                                            <div class="inputNewUser"><input type="text" name="family"
+                                                                             class="form-control"
+                                                                             id="family"></div>
                                         </div>
                                         <div class="form-group">
                                             <div class="textNewUser"><label for="age">Age</label></div>
-                                            <div class="inputNewUser"><input type="text" class="form-control"
-                                                                             id="age" form="addUser"></div>
+                                            <div class="inputNewUser"><input type="text" name="age" class="form-control"
+                                                                             id="age"></div>
                                         </div>
                                         <div class="form-group">
                                             <div class="textNewUser"><label for="emailNewUser">Email</label></div>
-                                            <div class="inputNewUser"><input type="email" class="form-control"
-                                                                             id="emailNewUser" form="addUser"></div>
+                                            <div class="inputNewUser"><input type="email" name="emailNewUser"
+                                                                             class="form-control"
+                                                                             id="emailNewUser"></div>
                                         </div>
                                         <div class="form-group">
                                             <div class="textNewUser"><label for="password">Password</label></div>
-                                            <div class="inputNewUser"><input type="password" class="form-control"
-                                                                             id="password" form="addUser"></div>
+                                            <div class="inputNewUser"><input type="password" name="password"
+                                                                             class="form-control"
+                                                                             id="password"></div>
                                         </div>
                                         <div class="inputNewUser" id="roleNewUser" form="addUser">
-                                            <select class="custom-select" size="2">
+                                            <select class="custom-select" size="2" name="roleNewUser">
                                                 <option value="1">ADMIN</option>
                                                 <option value="2">USER</option>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-success btnAddNewUser" id="addNewUser" form="addUser">Add
+                                        <button type="submit" class="btn btn-success btnAddNewUser">Add
                                             new user
                                         </button>
                                     </form>

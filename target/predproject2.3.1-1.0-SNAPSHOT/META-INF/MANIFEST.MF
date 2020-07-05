@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: aks
+Build-Jdk: 1.8.0_242
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: ru.javamentor
+Main-Class: ${start-class}
+
