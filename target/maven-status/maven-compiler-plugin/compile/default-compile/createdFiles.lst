@@ -6,6 +6,7 @@ ru\project\config\handler\LoginSuccessHandler.class
 ru\project\dao\UserDao.class
 ru\project\dao\RoleDaoImpl.class
 ru\project\model\Role.class
+ru\project\controller\UserRestController.class
 ru\project\controller\RegistrationController.class
 ru\project\service\UserService.class
 ru\project\dao\UserUserDaoImpl.class

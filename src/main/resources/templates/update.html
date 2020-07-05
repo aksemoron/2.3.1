@@ -180,7 +180,7 @@
     float: right
 }</style>
 </head><span id="warning-container"><i data-reactroot=""></i></span>
-<body class="" style="">
+<body class="modal-open" style="padding-right: 13px;">
 <body>
 
 <!-- панель сверху -->
@@ -259,7 +259,7 @@
                                         </ul>
                                     </td>
                                     <td>
-                                        <form action="/admin/showUpdate" method="get">
+                                        <form action="/admin/showUpdate" method="GET">
                                             <button type="submit" id="updateButton" class="btn btn-info"
                                                     data-toggle="modal"
                                                     name="updateButton"
@@ -269,7 +269,7 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <form action="/admin/showDelete" method="get">
+                                        <form action="/admin/showDelete" method="GET">
                                             <button type="submit" id="deleteButton" class="btn btn-danger"
                                                     data-toggle="modal"
                                                     name="deleteButton"
@@ -443,22 +443,20 @@
 
     <!-- Modal -->
     <div class="modal fade show" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         style="display: block;
-         padding-right: 13px;"
-         aria-modal="true">
+         aria-modal="true" style="padding-right: 13px; display: block;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
                     <form action="/admin/all" method="get">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        <button type="submit" class="close" data-dismiss="modal" aria-label="Close"
                                 id="closeUpdateModal">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </form>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/update" method="post">
+                    <form id="formToUpdate" action="/admin/updateUser" method="post">
                         <tr th:object="${userToUpdate}"></tr>
                         <div class="form-group">
                             <div class="textNewUser"><label for="name">ID</label></div>
@@ -510,14 +508,13 @@
                                 <option value="2">USER</option>
                             </select>
                         </div>
-                        <button type="submit" id="edit" class="btn btn-primary">Edit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <form action="/admin/all" method="get">
                         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </form>
-
+                    <button type="submit" id="edit" class="btn btn-primary" form="formToUpdate">Edit</button>
                 </div>
             </div>
         </div>
@@ -544,7 +541,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="../static/css/admin.css" type="text/css" th:href="@{/css/admin.css}" rel="stylesheet"/>
 </body>
-
 <div class="modal-backdrop fade show"></div>
 </body>
+</html>
 </html>

@@ -71,14 +71,13 @@ public class AdminController {
 
     @GetMapping(value = "/showUpdate")
     public String goToUpdateUser(ModelMap modelMap, @RequestParam Map<String, String> params) {
-        System.out.println(params.get("updateButton")+"----------------------------------------");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();//
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         Set<Role> set = user.getRoles();
         User userToUpdate = (User) userService.getById(Long.parseLong(params.get("updateButton")));
         String text = set.toString().replaceAll("(?u)[^\\pL ]", "");
         List<User> users = userService.getAll();
-        modelMap.addAttribute("email", user.getEmail());
+        modelMap.addAttribute("email1", user.getEmail());
         modelMap.addAttribute("roles1", text);
         modelMap.addAttribute("user1",user);
         modelMap.addAttribute("allUsers1",users);
@@ -86,18 +85,20 @@ public class AdminController {
         return "update";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping  (value = "/updateUser")
     public String updateUser(ModelMap model, @RequestParam Map<String, String> params) {
-        User user = new User(params.get("emailUpdate"),
+        System.out.println(params.size()+"------------------------------");
+        User user1 = new User(params.get("emailUpdate"),
                 Long.parseLong(params.get("ageUpdate")),params.get("passwordUpdate"), params.get("nameUpdate"),
                 params.get("familyUpdate"));
-        
+        user1.setId(Long.parseLong(params.get("idToUpdate")));
         Set<Role> roles= new HashSet<>();
         roles.add(roleDao.getOne(Long.parseLong(params.get("roleUpdate"))));
-        user.setRoles(roles);
-        userService.update(user);
+        user1.setRoles(roles);
+        userService.update(user1);
         return "redirect:/admin/all";
     }
+
     @PostMapping(value = "/deleteUser")
     public String deleteUser(ModelMap model, @RequestParam Map<String, String> params) {
         userService.remove(new User(Long.parseLong(params.get("deleteUser"))));
