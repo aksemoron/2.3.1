@@ -214,13 +214,13 @@ function getInfoOfUser() {
             for (let role of userRoles) {
                 roles += " " + role.name;
             }
-            userData += '<tr>';
-            userData += '<td>' + user.id + '</td>';
-            userData += '<td>' + user.name + '</td>';
-            userData += '<td>' + user.family + '</td>';
-            userData += '<td>' + user.age + '</td>';
-            userData += '<td>' + user.email + '</td>';
-            userData += '<td>' + roles + '</td>';
+            userData += `<tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.family}</td>
+                <td>${user.age}</td>
+                <td>${user.email}</td>
+                <td>${roles}</td>`
             $('#userInfoTable').html(userData);
         },
 

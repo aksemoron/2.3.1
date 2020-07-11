@@ -44,7 +44,8 @@ public class UserUserDaoImpl implements UserDao<User> {
 
     @Override
     public User findUserByEmail(String email) {
-        return HiberUtil.getSingleResult(sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.email=:e"));
+        return HiberUtil.getSingleResult(sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.email=:e")
+                .setParameter("e", email));
     }
 
     @Override
@@ -59,7 +60,8 @@ public class UserUserDaoImpl implements UserDao<User> {
 
     @Override
     public User getById(long id) {
-        return HiberUtil.getSingleResult(sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.id =:id", User.class));
+        return HiberUtil.getSingleResult(sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.id =:id", User.class)
+                .setParameter("id",id));
     }
 
     @Override
