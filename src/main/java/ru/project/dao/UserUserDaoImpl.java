@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.model.User;
+import ru.project.util.HiberUtil;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class UserUserDaoImpl  implements UserDao<User>  {
+public class UserUserDaoImpl implements UserDao<User> {
 
 
     private SessionFactory sessionFactory;
@@ -34,35 +35,31 @@ public class UserUserDaoImpl  implements UserDao<User>  {
 
     @Override
     public boolean remove(User object) {
-            Query query = sessionFactory.getCurrentSession().createQuery("DELETE FROM User WHERE id = :id");
-            query.setParameter("id", object.getId());
-            query.executeUpdate();
-            return true;
+        Query query = sessionFactory.getCurrentSession().createQuery("DELETE FROM User WHERE id = :id");
+        query.setParameter("id", object.getId());
+        query.executeUpdate();
+        return true;
     }
 
 
     @Override
     public User findUserByEmail(String email) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.email=:e");
-        query.setParameter("e", email);
-            return query.getSingleResult();
+        return HiberUtil.getSingleResult(sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.email=:e"));
     }
 
     @Override
     public boolean update(User object) {
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
-            session.update(object);
-            transaction.commit();
-            session.close();
-            return true;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(object);
+        transaction.commit();
+        session.close();
+        return true;
     }
 
     @Override
     public User getById(long id) {
-        Query<User> query = sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.id =:id", User.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+        return HiberUtil.getSingleResult(sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.roles where u.id =:id", User.class));
     }
 
     @Override

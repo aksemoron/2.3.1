@@ -44,18 +44,18 @@ function getTableOfUsers() {
                 for (let role of userRoles) {
                     roles += " " + role.name;
                 }
-                userData += '<tr>';
-                userData += '<td>' + user.id + '</td>';
-                userData += '<td>' + user.name + '</td>';
-                userData += '<td>' + user.family + '</td>';
-                userData += '<td>' + user.age + '</td>';
-                userData += '<td>' + user.email + '</td>';
-                userData += '<td>' + roles + '</td>';
-                userData += '<td> <button type="button" id="updateButton" class="btn btn-info" ' +
-                    'data-toggle="modal" data-target="#updateModal" data-id="' + user.id + '">Edit</button> </td>';
+                userData += `<tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.family}</td>
+                <td>${user.age}</td>
+                <td>${user.email}</td>
+                <td>${roles}</td>
+                <td> <button type="button" id="updateButton" class="btn btn-info"
+                data-toggle="modal" data-target="#updateModal" data-id="${user.id}">Edit</button> </td>
 
-                userData += '<td> <button type="button" id="deleteButton" class="btn btn-danger" ' +
-                    'data-toggle="modal" data-target="#deleteModal" data-id="' + user.id + '">Delete</button> </td>';
+                <td> <button type="button" id="deleteButton" class="btn btn-danger" 
+                    data-toggle="modal" data-target="#deleteModal" data-id="${user.id}">Delete</button> </td>`;
             });
 
             $('#userTable').html(userData);
@@ -94,7 +94,6 @@ $(document).on("click", "#addNewUser", function () {
         dataType: 'json',
         contentType: "application/json",
         success: function (responseData, status, jqXHR) {
-            $('.close').click();
             getTableOfUsers()
         },
         error: function () {
@@ -193,10 +192,12 @@ $(document).on("click", "#delete", function () {
         dataType: 'json',
         contentType: "application/json",
         success: function (responseData, status, jqXHR) {
-            window.location.replace("/admin");
+            $('.close').click();
+            getTableOfUsers()
         },
         error: function () {
-            window.location.replace("/admin/all");  //я так и не понял как обновить связанный сет без ошибки там все надо переделать
+            $('.close').click();
+            getTableOfUsers()
         }
     })
 })
