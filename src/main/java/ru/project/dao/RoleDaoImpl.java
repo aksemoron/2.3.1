@@ -15,6 +15,7 @@ public class RoleDaoImpl implements RoleDao {
 
     private SessionFactory sessionFactory;
 
+
     @Autowired
     public RoleDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

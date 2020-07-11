@@ -16,7 +16,7 @@ import java.util.Properties;
 
 
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @ComponentScan(value = "java")
 public class HuberConfig {
@@ -31,10 +31,10 @@ public class HuberConfig {
    @Bean
    public DataSource getDataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
-      dataSource.setDriverClassName(env.getProperty("db.driver"));
-      dataSource.setUrl(env.getProperty("db.url"));
-      dataSource.setUsername(env.getProperty("db.username"));
-      dataSource.setPassword(env.getProperty("db.password"));
+      dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+      dataSource.setUrl(env.getProperty("spring.datasource.url"));
+      dataSource.setUsername(env.getProperty("spring.datasource.username"));
+      dataSource.setPassword(env.getProperty("spring.datasource.password"));
       return dataSource;
    }
 
@@ -44,8 +44,7 @@ public class HuberConfig {
       factoryBean.setDataSource(getDataSource());
       
       Properties props=new Properties();
-      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+      props.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
 
       factoryBean.setHibernateProperties(props);
       factoryBean.setPackagesToScan("ru.project.model");

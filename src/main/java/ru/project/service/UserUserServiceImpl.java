@@ -22,11 +22,9 @@ import java.util.Set;
 @Service
 public class UserUserServiceImpl implements UserService<User>, UserDetailsService {
 
-
     private final UserDao userDao;
-
-
     private final RoleDao roleDao;
+
 
     @Autowired
     public UserUserServiceImpl(UserDao userDao, RoleDao roleDao) {

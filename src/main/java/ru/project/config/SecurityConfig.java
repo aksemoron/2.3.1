@@ -43,15 +43,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
-//                .antMatchers("/admin/**", "/adding", "/updating", "/deleting").hasAuthority("ADMIN")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/registration").anonymous()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
 
     }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

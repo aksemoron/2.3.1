@@ -13,11 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/me")
-    public String hello(ModelMap modelMap, HttpServletRequest httpSession){
+    public String hello(ModelMap modelMap, HttpServletRequest httpSession) {
         modelMap.addAttribute("user", httpSession.getSession().getAttribute("user"));
         return "user";
     }

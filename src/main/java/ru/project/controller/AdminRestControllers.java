@@ -15,44 +15,41 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/admin/rest")
-public class RestControllers {
+public class AdminRestControllers {
+
     private UserService userService;
 
+
     @Autowired
-    public RestControllers(UserService userService) {
+    public AdminRestControllers(UserService userService) {
         this.userService = userService;
     }
 
 
-
-
-
-
     @GetMapping("/tableOfUsers")
-    public List<User>  getTable() {
+    public List<User> getTable() {
         List<User> list = userService.getAll();
-         return list;
+        return list;
     }
 
     @PostMapping("/addNewUser")
-    public void addNewUser( @RequestBody User user){
+    public void addNewUser(@RequestBody User user) {
         userService.save(user);
     }
 
     @PostMapping("/updateUser")
-    public boolean updateUser(@RequestBody User user){
+    public boolean updateUser(@RequestBody User user) {
         return userService.update(user);
     }
 
 
-
     @GetMapping("/getUser/{id}")
-    public User getUserById(@PathVariable Long id){
+    public User getUserById(@PathVariable Long id) {
         return (User) userService.getById(id);
     }
 
     @GetMapping("/deleteUser/{id}")
-    public void deleteUserById(@PathVariable Long id){
+    public void deleteUserById(@PathVariable Long id) {
         userService.remove(new User(id));
     }
 

@@ -19,50 +19,8 @@ public class User implements UserDetails {
     @Column(name = "id")
     private long id;
 
-    public User(long id) {
-        this.id = id;
-    }
-
-    public User(long id, String name, String family, long balans) {
-        this.id = id;
-        this.name = name;
-        this.family = family;
-        this.balans = balans;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Column(name = "email")
     private String email;
-
-    public User(String email, String password, String name, String family, long balans) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.family = family;
-        this.balans = balans;
-    }
-
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
-    }
 
     @Column(name = "age")
     private Long age;
@@ -79,12 +37,32 @@ public class User implements UserDetails {
     @Column(name = "balans")
     private long balans;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-    public Set<Role> getRoles() {
-        return roles;
+
+
+
+    public User(long id) {
+        this.id = id;
     }
 
+    public User(long id, String name, String family, long balans) {
+        this.id = id;
+        this.name = name;
+        this.family = family;
+        this.balans = balans;
+    }
 
+    public User(String email, String password, String name, String family, long balans) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.family = family;
+        this.balans = balans;
+    }
 
     public User(String email, Long age, String password, String name, String family, long balans, Set<Role> roles) {
         this.email = email;
@@ -96,14 +74,53 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public User() {
+    }
+
+    public User(String name, String family, long balans) {
+        this.name = name;
+        this.family = family;
+        this.balans = balans;
+    }
+
+
+
+
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
 
     public long getId() {
         return id;
@@ -137,23 +154,12 @@ public class User implements UserDetails {
         this.balans = balans;
     }
 
-    public User() {
-    }
 
-    public User(String name, String family, long balans) {
-        this.name = name;
-        this.family = family;
-        this.balans = balans;
-    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 
     @Override
