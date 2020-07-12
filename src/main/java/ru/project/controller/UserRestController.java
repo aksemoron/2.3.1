@@ -22,6 +22,7 @@ import java.util.Set;
 public class UserRestController {
     private UserService userService;
 
+
     @Autowired
     public UserRestController(UserService userService) {
         this.userService = userService;
@@ -29,7 +30,7 @@ public class UserRestController {
 
     @GetMapping("/getUser")
     public User getUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();//
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (User) authentication.getPrincipal();
     }
 
