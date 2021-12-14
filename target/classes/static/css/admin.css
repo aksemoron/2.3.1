@@ -1,0 +1,76 @@
+.rightPanel {
+    background-color: #f4f4f4;
+    height: 100vh;
+}
+
+.leftPanel {
+    margin-top: 1%;
+}
+
+.adminPanel {
+    margin-top: 1%;
+}
+
+.optionalColor {
+    background-color: #e6e6e6;
+    color: black;
+    font-weight: 600;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: darkgrey;
+    color: black;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th {
+    background-color: #ffffff;
+    color: black;
+}
+
+.table-striped{
+    background-color: #ffffff;
+}
+
+#email{
+    color: white;
+    font-weight: bolder;
+}
+
+.witchRoles{
+    color: white;
+    font-weight: lighter;
+}
+
+#roles{
+    color: white;
+}
+
+.newUser{
+    background-color: white;
+}
+
+.textNewUser{
+    padding-top:1.5%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.inputNewUser{
+    resize: none;
+    width: 40%;
+    display:block;
+    margin:0 auto;
+}
+
+.btnAddNewUser{
+    display: block;
+    margin: 2% auto;
+}
+
+.new{
+    margin-right: 0;
+    margin-left: 0;
+}
+
